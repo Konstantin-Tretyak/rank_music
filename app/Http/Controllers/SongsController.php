@@ -99,6 +99,7 @@ class SongsController extends Controller
         $songs = $songs->paginate(12)->setPath("songs?".http_build_query(\Request::input()));
 
         // TODO: оценка http://plugins.krajee.com/star-rating-demo-basic-usage
+        // TODO: $is_rating = !empty($request->input('rating')); add to params
         return view('songs.index', compact('songs','genres','countries','tags', 'years', 'decades', 'centurys', 'filters'));
     }
 
