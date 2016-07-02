@@ -1,0 +1,334 @@
+body {
+    padding-top: 50px;
+    font-size: 14px;
+}
+
+@media (max-width: 1199px) {
+    body {
+        padding-top: 89px;
+    }
+}
+
+@media (min-width: 1250px) {
+    .container {
+        width: 1250px;
+        padding: 0;
+    }
+}
+
+@media (min-width: 1300px) {
+    .container {
+        width: 1300px;
+    }
+}
+
+@media (max-width: 319px) {
+    .container {
+        padding: 0px;
+    }
+}
+
+/*Navigation*/
+.navbar .col-md-12 {
+    padding: 0;
+}
+
+
+.navbar-inverse {
+  background-color: #000000;
+  border-color: #080808;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+    padding: 0px 0px;
+    font-size: 24px;
+    height: auto;
+    margin-top: 13px;
+}
+
+.input-group {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.search_field {
+    margin-left: 0px;
+    padding: 0;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+.search_field .btn {
+    border-radius: 0;
+}
+
+.btn-default {
+    border-left: initial;
+}
+
+.btn-default:hover {
+    background: #ffffff;
+}
+
+.navbar .search_button {
+    height: 18px;
+    width: 18px;
+}
+
+.navbar .form-control:focus {
+    border-right: #ffffff;
+}
+
+.navbar-toggle {
+    right: 0px;
+    padding: 0px;
+    margin-top: 7px;
+    margin-bottom: 0px;
+    margin-right: -5px;
+    border: initial;
+}
+
+.navbar .navbar-toggle .glyphicon-menu-hamburger {
+    font-size: 30px;
+    color: #ffffff;
+    height: 30px;
+    width: 30px;
+}
+
+.navbar-nav {
+    margin-top: 8px;
+    margin-right: 15px;
+}
+
+.nav-item .nav-link {
+    padding: 8px;
+}
+
+.navbar .dropdown .dropdown-toggle {
+    background: #167ac6;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 6px;
+}
+
+.navbar .dropdown .dropdown-toggle:hover {
+    background: #126db3;
+}
+
+.nav-item.user.dropdown img {
+    width: 30px;
+    margin-right: 5px;
+}
+
+.nav-item.user.dropdown a {
+    padding: 2px 6px 2px 2px;
+}
+
+.nav-item.dropdown {
+    margin-left: 80px;
+}
+
+.navbar-right {
+    margin-right: 20px;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background: #167ac6;
+}
+
+@media (min-width: 768px) {
+    .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+        margin-left: -15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar ul li:last-child {
+        margin-left: 0px;
+    }
+
+    .navbar-nav {
+        margin: 7.5px -15px;
+        position: fixed;
+        z-index: 3;
+        right: 25px;
+        top: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background: #222222;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+        margin-left: 0px;
+    }
+}
+/*End Navigation*/
+
+/*Content*/
+@media (max-width: 991px) {
+    .container {
+        width: 100%;
+        padding: 0px;
+    }
+
+    .center_field {
+        padding: 0px;
+    }
+
+    .left_field, .right_field, .center_field {
+        width: 100%;
+    }
+
+    .tags {
+        padding-left: 0px;
+        margin-right: -15px;
+    }
+}
+
+.content_field {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/*Center Field*/
+ .jumbotron {
+    color: #ffffff;
+    padding-left: 25px;
+    background: #000000;
+    border-radius: 0px;
+    margin-bottom: 10px;
+}
+
+.tags {
+    overflow: auto;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+.tags h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.new_tag {
+    overflow: hidden;
+}
+
+.carousel-inner > .item > img {
+  display: inline;
+  margin-left: 6%;
+  max-width: 25%;
+  height: auto;
+}
+
+@media (max-width: 991px) {
+.carousel-inner > .item > img {
+  display: inline;
+  margin-left: 6%;
+  max-width: 33.3%;
+  height: auto;
+}
+}
+
+video {
+    margin-left: 12.5%;
+    margin-right: auto;
+    width: 75%;
+}
+
+.for_all {
+    float: right;
+}
+
+.for_all .btn {
+    margin-top: 5px;
+}
+
+/*End Center Field*/
+
+/*End Content*/
+
+/*Right Field*/
+.right_field {
+    border: 2px solid #000000;
+    border-radius: 7px;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+.song_in_player {
+    color: #ffffff;
+    background: #444444;
+    height: 45px;
+    border-top: 2px solid #ffffff;
+    overflow: hidden;
+}
+
+.song_in_player:hover {
+    background: #000000;
+    cursor: pointer;
+}
+
+.player {
+    padding: 5px;
+    height: 100px;
+}
+
+.player .artist_img {
+    max-width: 50px;
+    height: auto;
+}
+
+.song_in_player .time_song {
+    margin-top: 10px;
+    padding-right: 0px;
+}
+
+.song_in_player .time_song p {
+    float: right;
+}
+
+
+@media (max-width: 991px) {
+    .song_in_player .time_song {
+    margin-left: -5px;
+}
+}
+
+.play_img {
+    margin-top: 5px;
+    margin-left: -10px;
+}
+
+.play_img img {
+    max-width: 20px;
+}
+
+.play_img img:hover {
+    max-width: 25px;
+    cursor: pointer;
+    border: 1px solid #ffffff;
+}
+/*End Right Field*/
+/*End Content*/
+
+/*Footer*/
+.footer {
+    margin-top: 20px;
+    width: 100%;
+    height: 33px;
+    background: #000000;
+    padding-right: 10px;
+}
+
+.footer h6 {
+    color: #ffffff;
+    float: right;
+}
+/*Footer end*/

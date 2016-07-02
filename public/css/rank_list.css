@@ -1,0 +1,181 @@
+Left Field*/
+.left_field {
+    margin-top: 5px;
+}
+
+.left_field .panel-heading {
+    padding: 0px;
+}
+
+.panel-default > .panel-heading:hover {
+    cursor: pointer;
+    background: #000000;
+}
+
+.panel-body#headingNull  {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.panel-button {
+    width: 100%;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.panel-button .glyphicon-galka {
+    float: right
+}
+
+/* ШУРКА */
+    .galka-button .glyphicon-galka:before {
+        content: "\e260";
+    }
+    .galka-button.collapsed .glyphicon-galka:before {
+        content: "\e259";
+    }
+/* ШУРКА end*/
+
+/*End Left Field*/
+
+/*Center Field*/
+.sort {
+    margin-top: 10px;
+}
+
+.sort select {
+    display: inline-block;
+    width: 145px;
+    margin-left: 5px;
+    text-transform: lowercase;
+    padding: 3px;
+}
+
+.sort select:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 353px) {
+    .sort select {
+        margin-left: 0px;
+    }
+}
+
+.sort select option:hover {
+    cursor: pointer;
+}
+
+.song_list img.img-responsive {
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    width: 100%;
+}
+
+.artist_and_rank {
+    position: relative;
+}
+
+.song_information .artist_and_rank .action_song {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    opacity: .0;
+}
+
+.song_information .artist_and_rank .action_song:hover {
+    opacity: 1.0;
+}
+
+.artist_and_rank .action_song span {
+    padding: 5px;
+    padding-left: 8px;
+    background: #000000;
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    color: #ffffff;
+    font-size: 32px;
+    border-radius: 50%;
+    top: initial;
+    border: 2px solid #ffffff;
+    opacity: .7;
+}
+
+.artist_and_rank .action_song span:hover {
+    opacity: 1.0;
+}
+
+.artist_and_rank .action_song span.glyphicon-plus {
+    top: 5px;
+    right: 5px;
+}
+
+.artist_and_rank .action_song span.glyphicon-play {
+    bottom: 5px;
+    left: 5px;
+}
+
+.artist_and_rank .action_song .glyphicon:hover {
+    cursor: pointer;
+}
+
+.song_information {
+    margin-top: 15px;
+}
+
+.details {
+    padding: 10px 10px 3%;
+    width: 100%;
+}
+
+.details p {
+    margin: 0px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 700;
+    overflow: hidden;
+}
+
+.details p.artist {
+    font-size: 13px;
+    font-weight: 0;
+    color: blue;
+}
+
+@media (max-width: 1368px) {
+    li.song {
+        width: 32.906%;
+    }
+}
+
+@media (max-width: 1199px) {
+    li.song {
+        width: 49.609%;
+    }
+}
+
+@media (max-width: 991px) {
+    li.song {
+        width: 32%;
+    }
+}
+
+@media (max-width: 720px) {
+    li.song {
+        width: 49%;
+    }
+}
+
+@media (max-width: 554px) {
+    li.song {
+        width: 100%;
+    }
+}
+/*End Center Field

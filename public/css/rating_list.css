@@ -1,0 +1,32 @@
+.modal-body ul {
+    overflow: auto;
+}
+
+.ratings_list .col-md-9, .ratings_list .col-md-12 {
+    padding-left: 0px;
+}
+
+.ratings_list {
+    height: 170px;
+    margin-top: 10px;
+    width: 220px;
+    margin-left: 5px;
+}
+
+@media(max-width: 298px) {
+
+.ratings_list p {
+    margin-top: 5px;
+    border-bottom: 1px solid #000000;
+}
+
+.ratings_list li {
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.show_all {
+    border-top: 1px solid #000000;
+    margin-top: 5px;
+}

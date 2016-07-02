@@ -1,0 +1,176 @@
+.song_tags {
+    float: right;
+}
+
+.song_tags li {
+    font-size: 20px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.song_tags li:hover {
+    cursor: pointer;
+    font-size: 22px;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+    .song_tags {
+        float: left;
+    }
+}
+
+.song_tag {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: auto;
+}
+
+.song_info h4 {
+    margin: 0px;
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.song_tag .img_artist {
+    padding-left: 0px;
+}
+
+.song_tag .img_artist img {
+    width: 100%;
+}
+
+.tags h3 {
+    padding-left: 0px;
+}
+
+.song_tag .artist h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.song_tag .song_info_row {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 18px;
+}
+
+.song_tag .song_info_row p {
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.song_tag .song_info_row.stars_and_value {
+    padding-left: 15px;
+}
+
+.song_info_row.tag_name {
+    border-bottom: 3px solid #000000;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    font-size: 22px;
+}
+
+.shut_up {
+    float: right;
+}
+
+.only_shut_up {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.song_info_row.tag_name .shut_up:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.tag_name {
+    overflow: hidden;
+}
+
+.tag_name .glyphicon {
+    margin-top: 4px;
+}
+
+.tag_tag {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 5px;
+}
+
+.tag_tag .list-inline {
+    float: right;
+    margin-right: 5px;
+    margin-bottom: 0px;
+}
+
+.tag_tag .list-inline li {
+    padding-left: 3px;
+    padding-right: 0px;
+}
+
+@media (max-width: 595px) {
+    .tag_tag.col-md-1, .tag_tag.col-md-6 {
+    min-height: 40px;
+    }
+
+    .tag_tag .list-inline {
+    margin-right: 0px;
+}
+}
+
+.please_comment button {
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.people_comments {
+    background: #e0e0e0;
+    overflow: auto;
+}
+
+.other_comments {
+    border-top: 1px solid grey;
+    margin-top: 60px;
+}
+
+.one_comment {
+    border: 2px solid #000000;
+}
+
+.user_img img {
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.about_user h4 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.about_user {
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.user_coment {
+    overflow: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user_coment .comment {
+    background: #ffffff;
+}
+
+.coment_date {
+    float: right;
+}
