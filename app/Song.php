@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Song extends Model
+class Song extends AbstractModel
 {
     public $timestamps = ['created_at'];
     protected $fillable = [
@@ -21,6 +19,7 @@ class Song extends Model
         return $this->belongsTo('App\Artist', 'composer_id');
     }
 
+    // App\Song::first()->ranks()->create(['value'=>3,'user_id'=>1])->save()
     public function ranks()
     {
         return $this->hasMany('App\Rank');
