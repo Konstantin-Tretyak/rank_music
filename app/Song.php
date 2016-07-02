@@ -9,6 +9,17 @@ class Song extends AbstractModel
         'name', 'is_song', 'year', 'duration', 'genre_id', 'composer_id', 'performer_id'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        \App\Rank::creating(function($rank)
+        {
+            // $rank->song
+            // TODO: init rank, rank_count, place_in_rank
+        });
+    }
+
     public function performer()
     {
         return $this->belongsTo('App\Artist', 'performer_id');
@@ -30,8 +41,11 @@ class Song extends AbstractModel
         return $this->ranks()->avg('value');
     }
 
+    // TODO: сделать 3 поля: rank_count, rank, place_in_rank.
+    // при создании/удалении Rank их обновлять
     public function getRankCountAttribute()
     {
+        // TODO: для всех 3 аттрибутов: если колонка rank_count == NULL, то проинициализировать. есть не равна, то вернуть
         return $this->ranks()->count();
     }
 
