@@ -78,6 +78,7 @@
 
     <script src="scripts\jquery-1.12.1.js"> </script>
     <script src="scripts\bootstrap.js"> </script>
+    @yield('js')
 
     </body>
 

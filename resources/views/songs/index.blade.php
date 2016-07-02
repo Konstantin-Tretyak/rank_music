@@ -225,8 +225,6 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="scripts\forms_controll.js"></script>
-
         <div class="center_field col-md-7 col-sm-12">
             <div class="new_tag">
                 <div class="tags">
@@ -512,4 +510,8 @@
         </div>
     </div>
 
+@stop
+
+@section('js')
+    <script src="{{ url('scripts/songs/index.js') }}"></script>
 @stop

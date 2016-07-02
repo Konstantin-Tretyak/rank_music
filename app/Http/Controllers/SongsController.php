@@ -95,6 +95,7 @@ class SongsController extends Controller
                         ->orderBy('year', 'desc')
                         ->pluck('century');
 
+        // TODO: append request:input except page
         $songs = $songs->paginate(12)->setPath("songs?".http_build_query(\Request::input()));
 
         // TODO: оценка http://plugins.krajee.com/star-rating-demo-basic-usage

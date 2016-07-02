@@ -16,6 +16,7 @@ function send_post()
         }
     }
 
+    //Search
     var search = document.getElementsByClassName('search')[0];
     get_uri = get_uri + encodeURIComponent(search.getAttribute('name'));
     get_uri = get_uri + "=";
@@ -23,6 +24,7 @@ function send_post()
 
     window.location.search = get_uri;
 
+    //Сделать hidden поле поиска в фильтер
     //return get_uri;
 }
 
