@@ -251,12 +251,12 @@
                             Сортировка
                         </label>
                         <select class="form-control" name="sort">
-                            <option value="place_in_rank" @if(isset($filters['sort']) || $filters['sort']=="place_in_rank")selected @endif> По рейтингу </option>
-                            <option value="name" @if(isset($filters['sort']) && $filters['sort']=="name")selected @endif> По названию </option>
-                            <option value="performer" @if(isset($filters['sort']) && $filters['sort']=="performer")selected @endif> По исполнителю </option>
-                            <option value="composer" @if(isset($filters['sort']) && $filters['sort']=="composer")selected @endif> По композитору </option>
-                            <option value="duration" @if(isset($filters['sort']) && $filters['sort']=="duration")selected @endif> По длительности </option>
-                            <option value="year "@if(isset($filters['sort']) && $filters['sort']=="year")selected @endif> По году </option>
+                            <option value="place_in_rank" > По рейтингу </option>
+                            <option value="name" > По названию </option>
+                            <option value="performer" > По исполнителю </option>
+                            <option value="composer" > По композитору </option>
+                            <option value="duration" > По длительности </option>
+                            <option value="year "@if(isset($filters['sort']) && $filters['sort']=="year") selected="selected" @endif> По году </option>
                         </select>
                         <button type="submit" class="btn btn-primary submit_sort">Сортировать</button>
                     </form>

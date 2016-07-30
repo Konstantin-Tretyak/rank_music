@@ -131,6 +131,7 @@
 
 
    <script type="text/javascript">
+        @if(isset($songs_count))
             $(document).ready(function() {
                 @foreach($songs_count as $key=>$value)
                     @if($value==2)
@@ -140,6 +141,7 @@
                     @endif
                 @endforeach
             });
+        @endif
     </script>
 
     <script >
