@@ -82,21 +82,6 @@
                                                             @endforeach
                                                         </ul>
                                                     @endif
-                                                    <ul class="pagination number_pagination">
-                                                        @if($rank_name=="country")
-                                                            @for($i=1;$i<$pagination_list+1;$i++)
-                                                                @if($i==1)
-                                                                <li class="paginate_number active" data-paginate="{{ $i }}">
-                                                                    <span>{{ $i }}</span>
-                                                                </li>
-                                                                @else
-                                                                <li class="paginate_number" data-paginate="{{ $i }}">
-                                                                    <span>{{ $i }}</span>
-                                                                </li>
-                                                                @endif
-                                                            @endfor
-                                                        @endif
-                                                    </ul>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -124,6 +109,7 @@
             var modal_window = $('#'+list_type);
             var symbol = modal_window.first().find('.ratings-alphabet').find('.active').data('symbol');
             var paginate_number = modal_window.first().find('.number_pagination').find('.active').data('paginate');
+            paginate_number = (paginate_number) ? paginate_number : 1;
 
             controllRankLists(symbol, paginate_number, list_type, {{ $limit }} );
         });
@@ -190,7 +176,7 @@
                         }
 
                         result.ranks.forEach(function(item, i, result){
-                                var url=`http://`+window.location.host+`\\`+"songs?"+list_type+"="+item.id;
+                                var url=`http://`+window.location.host+`\\`+"songs?sort=place_in_rank&"+list_type+"="+item.id;
                                 list.append(
                                     `<div class="col-md-9 col-sm-9 col-xs-9">
                                      <a href="`+url+`">`+item.name+`</a>

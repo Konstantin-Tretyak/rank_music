@@ -26,11 +26,6 @@ class RanksListController extends Controller
 
         $ranks['country']['tittle'] = "Рейтинг по странам";
         $ranks['country']['data'] = \App\Country::get();
-        if(count($ranks['country']['data'])>$limit-1)
-            $pagination_list = ceil(count($ranks['country']['data'])/$limit);
-        $ranks['country']['data'] = \App\Country::limit($limit)->get();
-
-
 
         $ranks_year['year']['tittle'] = "Рейтинг по годам";
         $ranks_year['year']['data'] = \App\Song::distinct()->orderBy('year', 'desc')->limit($limit)->pluck('year');
