@@ -16,7 +16,7 @@ class CreateRanksTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('song_id')->unsigned()->nullable();
-            $table->integer('value');
+            $table->float('value');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');

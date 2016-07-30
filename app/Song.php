@@ -2,22 +2,44 @@
 
 namespace App;
 
+use Auth;
+
 class Song extends AbstractModel
 {
     public $timestamps = ['created_at'];
     protected $fillable = [
-        'name', 'is_song', 'year', 'duration', 'genre_id', 'composer_id', 'performer_id'
+        'name', 'is_song', 'year', 'duration', 'genre_id', 'composer_id', 'performer_id',
+        'rank', 'rank_count', 'place_in_rank','listens_count'
     ];
 
-    public static function boot()
+    /*public static function boot()
     {
         parent::boot();
 
-        \App\Rank::creating(function($rank)
+        \App\Song::created(function($song)
         {
-            // $rank->song
-            // TODO: init rank, rank_count, place_in_rank
+            $song->update(['rank'=>$song->rank,
+                           'rank_count'=>$song->rank_count]);
+                        // TODO: init rank, rank_count, place_in_rank
         });
+    }*/
+
+    public static function createYearModel($yearType="year")
+    {
+        if($yearType=='decade')
+            $years = \DB::table('songs')->select(\DB::raw("(year DIV 10) * 10 as year"))->distinct()->orderBy('year', 'desc')->get();
+        else if($yearType=='century')
+            $years = \DB::table('songs')->select(\DB::raw("(year DIV 100)*100 as year"))->distinct()->orderBy('year', 'desc')->get();
+        else if(($yearType=='year') || ($yearType==''))
+            $years = \DB::table('songs')->distinct()->select('year')->orderBy('year','desc')->get();
+
+        $year_models = [];
+        foreach($years as $value)
+        {
+            $year_models[] = new \App\Year($value->year, $yearType);
+        }
+
+        return $year_models;
     }
 
     public function performer()
@@ -36,30 +58,32 @@ class Song extends AbstractModel
         return $this->hasMany('App\Rank');
     }
 
-    public function getRankAttribute()
+    public function getAverageRankAttribute()
     {
-        return $this->ranks()->avg('value');
+        return $this->ranks->avg('value');
     }
 
-    // TODO: сделать 3 поля: rank_count, rank, place_in_rank.
-    // при создании/удалении Rank их обновлять
-    public function getRankCountAttribute()
+    public function getUserRankAttribute()
     {
-        // TODO: для всех 3 аттрибутов: если колонка rank_count == NULL, то проинициализировать. есть не равна, то вернуть
-        return $this->ranks()->count();
+        if(auth()->check())
+        {
+            $user_rank = $this->ranks->where('user_id',Auth::user()->id)->first();
+            if(!is_null($user_rank))
+                return $user_rank->value;
+            else
+                return 0;
+        }
+        return;
     }
 
-    public function getPlaceInRankAttribute()
+    public function getRankedCountAttribute()
     {
-        /*return count(\App\Rank::select(\DB::raw('AVG(ranks.value)'))
-                            ->groupBy('song_id')
-                            ->havingRaw("AVG(ranks.value)>".$this->rank())
-                            ->get())+1;*/
-        return \DB::select("select count(*) as place_in_rank from (select count(song_id) from `ranks` group by `song_id` having AVG(ranks.value) > {$this->rank}) as t")[0]->place_in_rank+1;
-    // return \App\Rank::select(\DB::raw('AVG(ranks.value)'))
-    //                             ->groupBy('song_id')
-    //                             ->havingRaw("AVG(ranks.value)>".$this->rank())
-    //                             ->count();
+        return $this->ranks->count();
+    }
+
+    public function getPlacesssInRankAttribute()
+    {
+        return \App\Song::whereRaw("$this->rank < rank")->count()+1;
     }
 
     public function listens()
@@ -84,12 +108,12 @@ class Song extends AbstractModel
 
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany('App\Comment')->orderBy('created_at','desc');
     }
 
-    public function country()
+    public function getCountryAttribute()
     {
-        return $this->composer->country();
+        return $this->composer->country;
     }
 
     public function getPhotoAttribute()
@@ -100,5 +124,15 @@ class Song extends AbstractModel
     public function genre()
     {
         return $this->belongsTo('App\Genre');
+    }
+
+    public function hasVideo()
+    {
+        return $this->video_youtube_id ? true : false;
+    }
+
+    public function hasText()
+    {
+        return $this->text ? true : false;
     }
 }

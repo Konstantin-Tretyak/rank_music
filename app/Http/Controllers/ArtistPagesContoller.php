@@ -18,6 +18,6 @@ class ArtistPagesContoller extends Controller
     {
     	$artist = \App\Artist::findOrFail($id);
 
-    	return view('artist.artist_page', compact('artist'));
+    	return view('artist.show', compact('artist'));
     }
 }

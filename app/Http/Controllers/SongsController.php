@@ -10,9 +10,7 @@ class SongsController extends Controller
 {
     public function index(Request $request)
     {
-        $songs = \App\Song::query();
-
-        // dd($request->all());
+        $songs = \App\Song::with(['performer']);
 
         $filters = [];
 
@@ -22,24 +20,47 @@ class SongsController extends Controller
             $songs =  $songs->where('name','like',"%$search%");
         }
 
-        if ($genres = $request->input('genres'))
+        ///Запросы, приходящие только с ranks
+        if ($performers = $request->input('performer'))
         {
-            $filters['genres'] = $genres;
+            if(!is_array($performers))
+                $performers = (array)$performers;
+            $filters['performer'] = $performers;
+            $songs = $songs->whereIn('performer_id',$performers);
+        }
+
+        if ($composers = $request->input('composer'))
+        {
+            if(!is_array($performers))
+                $composers = (array)$composers;
+            $filters['composer'] = $composers;
+            $songs = $songs->whereIn('composer_id',$composers);
+        }
+        ///
+
+        if ($genres = $request->input('genre'))
+        {
+            if(!is_array($genres))
+                $genres = (array)$genres;
+            $filters['genre'] = $genres;
             $songs = $songs->whereIn('genre_id', $genres);
         }
 
-        if ($countries = $request->input('countries'))
+        if ($countries = $request->input('country'))
         {
-            $filters['countries'] = $countries;
-
-            $songs->whereHas('performer', function($query) use ($countries) {
+            if(!is_array($countries))
+                $countries = (array)$countries;
+            $filters['country'] = $countries;
+            $songs->whereHas('composer', function($query) use ($countries) {
                 $query->whereIn('country_id', $countries);
             });
         }
 
-        if ($tags = $request->input('tags'))
+        if ($tags = $request->input('tag'))
         {
-            $filters['tags'] = $tags;
+            if(!is_array($tags))
+                $tags = (array)$tags;
+            $filters['tag'] = $tags;
             // Way 1 (simple, not works because of conflict of 'id' fields)
             // $songs = $songs->join('song_tag', 'song_tag.song_id', '=', 'songs.id')->whereIn('song_tag.tag_id', $tags);
 
@@ -56,22 +77,43 @@ class SongsController extends Controller
 
         }
 
-        if (($years = $request->input('range_year')) && $years['years']['min'] != "" && $years['years']['max'] != "" )
+        if ($years = $request->input('year'))
         {
-            $filters['range_year']['min'] = $years['years']['min'];
-            $filters['range_year']['max'] = $years['years']['max'];
-            $songs = $songs->whereBetween('year',$years['years']);
+            if(!is_array($years))
+            {
+                $filters['range_year']['min'] = $years;
+                $filters['range_year']['max'] = $years;
+
+                $songs = $songs->whereBetween('year',[$years,$years]);
+            }
+            else if($years['years']['min'] != "" && $years['years']['max'] != "" )
+            {
+                $filters['range_year']['min'] = $years['years']['min'];
+                $filters['range_year']['max'] = $years['years']['max'];
+
+                $songs = $songs->whereBetween('year',$years['years']);
+            }
         }
         else if (($years = $request->input('decade')) != "")
         {
             $filters['decade'] = $years;
             $songs = $songs->whereBetween('year',[$years, $years+9]);
         }
-        else if (($years = $request->input('century') != ""))
+        else if (($years = $request->input('century')) != "")
         {
             //var_dump($years);
             $filters['century'] = $years/100 + 1;
             $songs = $songs->whereBetween('year',[$years, $years+99]);
+        }
+
+        if($sort = $request->input('sort'))
+        {
+            $filters['sort'] = $sort;
+
+            if(($sort == 'composer') || ($sort == 'performer'))
+            $songs->orderByRelation($sort,'name');
+            else
+            $songs->orderBy($sort,'asc');
         }
 
         /*if($sort = $request->input('sort'))
@@ -80,6 +122,8 @@ class SongsController extends Controller
             $songs = $songs->join('ranks', 'songs.id','=','ranks.song_id')->groupBy('songs_id')->orderBy('song_id');
         }*/
 
+        $performers = \App\Artist::distinct()->select('artists.*')->join('songs','artists.id','=','songs.performer_id')->get();
+        $composers = \App\Artist::distinct()->select('artists.*')->join('songs','artists.id','=','songs.composer_id')->get();
         $genres = \App\Genre::all();
         $countries = \App\Country::all();
         $tags = \App\Tag::all();
@@ -100,7 +144,7 @@ class SongsController extends Controller
 
         // TODO: оценка http://plugins.krajee.com/star-rating-demo-basic-usage
         // TODO: $is_rating = !empty($request->input('rating')); add to params
-        return view('songs.index', compact('songs','genres','countries','tags', 'years', 'decades', 'centurys', 'filters'));
+        return view('songs.index', compact('songs','performers','composers','genres','countries','tags', 'years', 'decades', 'centurys', 'filters'));
     }
 
     public function show($id)

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Comment extends AbstractModel
 {
     public $timestamps = ['created_at'];
     protected $fillable = [

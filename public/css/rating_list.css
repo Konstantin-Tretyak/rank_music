@@ -13,6 +13,50 @@
     margin-left: 5px;
 }
 
+ul .ratings-alphabet {
+    height: 15px;
+    overflow: visible;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+ul .ratings-alphabet li {
+    width: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border: 1px solid #000000;
+    font-size: 16px;
+    text-align: center;
+}
+
+ul .ratings-alphabet li:hover {
+    background-color: #337ab7;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+.list_character {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.ratings_list .all_ranks {
+    height: auto;
+}
+
+ul .rank_list_min {
+    height: 120px;
+    overflow: hidden;
+}
+
+div.name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media(max-width: 298px) {
 
 .ratings_list p {
@@ -20,11 +64,11 @@
     border-bottom: 1px solid #000000;
 }
 
-.ratings_list li {
+/*.ratings_list li {
     height: 20px;
     width: 100%;
     overflow: hidden;
-}
+}*/
 
 .show_all {
     border-top: 1px solid #000000;

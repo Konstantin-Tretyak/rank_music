@@ -16,21 +16,20 @@
                                 <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom"  title="Информация" aria-hidden="true"></span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#audio" >
-                                <span class="glyphicon glyphicon-music" data-toggle="tooltip" data-placement="bottom"  title="Аудио" aria-hidden="true"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#video" >
-                                <span class="glyphicon glyphicon-facetime-video" data-toggle="tooltip" data-placement="bottom"  title="Видео" aria-hidden="true"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#text" >
-                                <span class="glyphicon glyphicon-list" href="#text" data-toggle="tooltip" data-placement="bottom"  title="Текст" aria-hidden="true"></span>
-                            </a>
-                        </li>
+                        @if($song->hasVideo())
+                            <li>
+                                <a href="#video" >
+                                    <span class="glyphicon glyphicon-facetime-video" data-toggle="tooltip" data-placement="bottom"  title="Видео" aria-hidden="true"></span>
+                                </a>
+                            </li>
+                        @endif
+                        @if($song->hasText())
+                            <li>
+                                <a href="#text" >
+                                    <span class="glyphicon glyphicon-list" href="#text" data-toggle="tooltip" data-placement="bottom"  title="Текст" aria-hidden="true"></span>
+                                </a>
+                            </li>
+                        @endif
                         <li>
                             <a href="#comment" >
                                 <span class="glyphicon glyphicon-comment" href="#comment" data-toggle="tooltip" data-placement="bottom"  title="Комментарии" aria-hidden="true"></span>
@@ -57,26 +56,37 @@
                                     <div class="duration col-md-4">
                                         <span class="glyphicon glyphicon-time" data-toggle="tooltip" data-placement="bottom"  title="Длительность" aria-hidden="true"></span>
                                         <p>
-                                            {{ floor($song->duration/60) }}:{{ $song->duration%60 }}
+                                            {{ floor($song->duration/60) }}:@if($song->duration%60===0)00 @elseif($song->duration%60-10<0)0{{ $song->duration%60 }} @else{{ $song->duration%60 }}@endif
                                         </p>
                                     </div>
                                     <div class="country col-md-4">
                                         <span class="glyphicon glyphicon-flag" data-toggle="tooltip" data-placement="bottom"  title="{{ $song->country->name }}" aria-hidden="true"></span>
                                     </div>
-                                    <div class="year col-md-4">
-                                        Год: {{ $song->year }}
+                                    @if($song->year!=0)
+                                        <div class="year col-md-4">
+                                            Год: {{ $song->year }}
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="row song_info_row">
+                                    <div class="rating-container rating-xs rating-animate col-md-6">
+                                        <input type="text" class="rating hide"
+                                                value="
+                                                @if(auth()->check())
+                                                    {{ $song->userRank }}
+                                                @else
+                                                    {{ round($song->rank, 2) }}
+                                                @endif
+                                                " data-size="xs" data-song-id="{{ $song->id }}" data-action="{{ url('star_controller') }}" title="">
                                     </div>
+                                    @if(auth()->check())
+                                        <div class="year col-md-6">
+                                            Рейтинг: {{ round($song->rank, 2) }}
+                                        </div>
+                                    @endif
                                 </div>
-                                <div class="row song_info_row stars_and_value">
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    <p>
-                                        {{ round($song->rank(),1) }}/5 ({{ $song->rank_count() }} голоса)
-                                    </p>
-                                </div>
+
                                 <p>
                                     Тип: @if($song->is_song)песня @else инструментал @endif
                                 </p>
@@ -90,7 +100,7 @@
                                     <div class="rank col-md-4 col-sm-4 col-xs-4">
                                         <span class="glyphicon glyphicon-glass" data-toggle="tooltip" data-placement="bottom"  title="Рейтинг" aria-hidden="true"></span>
                                         <p>
-                                            {{ $song->place_in_the_rank() }}
+                                            {{ $song->place_in_rank }}
                                         </p>
                                     </div>
                                     <div class="comments col-md-4 col-sm-4 col-xs-4">
@@ -102,7 +112,7 @@
                                     <div class="listents col-md-4 col-sm-4 col-xs-4">
                                         <span class="glyphicon glyphicon-headphones" data-toggle="tooltip" data-placement="bottom"  title="Количество прослушиваний" aria-hidden="true"></span>
                                         <p>
-                                            {{ $song->listen_count() }}
+                                            {{ $song->listens_count }}
                                         </p>
                                     </div>
                                 </div>
@@ -111,137 +121,63 @@
                     </div>
                 </div>
 
-                <div id="audio" class="song_tag song_audio">
-                    <div class="song_info_row tag_name">
-                        <span class="tag_tag col-md-1 col-sm-6 col-xs-6 glyphicon glyphicon-music" data-toggle="tooltip" data-placement="bottom"  title="Аудио" aria-hidden="true"></span>
-                        <div class="tag_tag col-md-1 col-md-push-10 xs-6">
+                @if($song->hasVideo())
+                    <div id="video" class="song_tag songs_video">
+                        <div class="song_info_row tag_name">
+                                <span class="tag_tag col-md-1 col-sm-6 col-xs-6 glyphicon glyphicon-facetime-video" data-toggle="tooltip" data-placement="bottom"  title="Видео" aria-hidden="true"></span>
                         </div>
-                        <div class="tag_tag col-md-offset-4 col-md-6 col-md-pull-1 xs-12" >
-                            <ul class="list-inline">
-                                <li>
-                                    <button type="button" class="btn btn-info">оригинал</button>
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-info">live</button>
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-info">кавер</button>
-                                </li>
-                            </ul>
+
+                        <div class="player_wraper">
+                            <iframe center id="collapseVideo" class="collapse in"  width="100%" height="350" src="https://www.youtube.com/embed/{{ $song->video_youtube_id }}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
-                    <ul  class="list-unstyled">
-                        <li>
-                            <div class="song_in_player">
-                                <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                                    <img src="foto\icon\Start.png" class="img-circle">
-                                </div>
-                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <div>
-                                        Queen
-                                    </div>
-                                    <div>
-                                        These Are The Days Of Our Lives
-                                    </div>
-                                </div>
-                                <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                                    <p>
-                                        4:08
-                                    </p>
-                                </div>
+                @endif
+
+                @if($song->hasText())
+                    <div id="text" class="song_tag song_text">
+                        <div class="song_info_row tag_name">
+                                <span class="tag_tag col-md-1 col-sm-6 col-xs-6 glyphicon glyphicon-list" data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Текст" aria-hidden="true"></span>
+                            <div class="tag_tag col-md-1 col-md-push-10 xs-6">
+                                <button type="button" class="btn btn-default shut_up only_shut_up" data-toggle="collapse" data-target="#collapseText" aria-expanded="true" aria-controls="collapseText">
+                                    <span class="glyphicon glyphicon-chevron-down" data-toggle="tooltip" data-placement="bottom"  title="Спрятать" aria-hidden="true"></span>
+                                </button>
                             </div>
-                        </li>
-                        <li>
-                            <div class="song_in_player">
-                                <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                                    <img src="foto\icon\Start.png" class="img-circle">
-                                </div>
-                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <div>
-                                        Queen
-                                    </div>
-                                    <div>
-                                        These Are The Days Of Our Lives
-                                    </div>
-                                </div>
-                                <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                                    <p>
-                                        4:08
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="video" class="song_tag song_video">
-                    <div class="song_info_row tag_name">
-                            <span class="tag_tag col-md-1 col-sm-6 col-xs-6 glyphicon glyphicon-facetime-video" data-toggle="tooltip" data-placement="bottom"  title="Видео" aria-hidden="true"></span>
-                        <div class="tag_tag col-md-1 col-md-push-10 xs-6">
-
                         </div>
-                        <div  class="tag_tag col-md-offset-4 col-md-6 col-md-pull-1 xs-12" >
-                            <ul class="list-inline">
-                                <li>
-                                    <button type="button" class="btn btn-info">оригинал</button>
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-info">live</button>
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-info">кавер</button>
-                                </li>
-                            </ul>
-                        </div>
+                        <pre id="collapseText" class="collapse in" > A             D/A                A    D        G/D  D
+                             Sometimes I get to feeling I was back in the old days long ago
+                              A                   D/A      A    D       G/D  D
+                             When we were kids, when we were young things seemed so perfect, you know
+                             A/E
+                             The days were nedless, we were crazy we were young
+                             E
+                             The sun was always shining, we just lived for fun
+                             Bm/F#          Bm
+                             Sometimes I feel like lately, I dont know
+                             F#m                    E
+                             The rest of my lifes been just a show
+
+                             Chorus:
+                             A     D/A  A   E/G#  F#m  E    D9
+                             Those were the days of our lives
+                             A        D/A   A   E/G#   A   E   D9
+                             The bad things in life were so few
+                             A   D/A  A   E/G#  F#m  G G  Dsus2  G   D/F#
+                             Those days are all gone now, but one thing is true
+                                      A/E         E          D
+                             When I look, and I find I still love you
+
+                             Verse 2:
+                             You cant turn back the clock, you cant turn back the tide
+                             Aint that a shame?
+                             Id like to go back one time on a rollercoaster ride
+                             When life`s just a game
+                             No use in sitting and thinking on what you did
+                             When you can lay back and enjoy it through your kids
+                             Sometimes it seems like lately, I just dont know
+                             Better sit back and go with the flow
+                        </pre>
                     </div>
-
-                    <video id="collapseVideo" class="collapse in"  controls="" src="video\Queen(Poslednij klip Freddi Merkuri) - These Are The Days Of Our Lives.240.mp4"> </video>
-                </div>
-
-
-                <div id="text" class="song_tag song_text">
-                    <div class="song_info_row tag_name">
-                            <span class="tag_tag col-md-1 col-sm-6 col-xs-6 glyphicon glyphicon-list" data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Текст" aria-hidden="true"></span>
-                        <div class="tag_tag col-md-1 col-md-push-10 xs-6">
-                            <button type="button" class="btn btn-default shut_up only_shut_up" data-toggle="collapse" data-target="#collapseText" aria-expanded="true" aria-controls="collapseText">
-                                <span class="glyphicon glyphicon-chevron-down" data-toggle="tooltip" data-placement="bottom"  title="Спрятать" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <pre id="collapseText" class="collapse in" > A             D/A                A    D        G/D  D
-                         Sometimes I get to feeling I was back in the old days long ago
-                          A                   D/A      A    D       G/D  D
-                         When we were kids, when we were young things seemed so perfect, you know
-                         A/E
-                         The days were nedless, we were crazy we were young
-                         E
-                         The sun was always shining, we just lived for fun
-                         Bm/F#          Bm
-                         Sometimes I feel like lately, I dont know
-                         F#m                    E
-                         The rest of my lifes been just a show
-
-                         Chorus:
-                         A     D/A  A   E/G#  F#m  E    D9
-                         Those were the days of our lives
-                         A        D/A   A   E/G#   A   E   D9
-                         The bad things in life were so few
-                         A   D/A  A   E/G#  F#m  G G  Dsus2  G   D/F#
-                         Those days are all gone now, but one thing is true
-                                  A/E         E          D
-                         When I look, and I find I still love you
-
-                         Verse 2:
-                         You cant turn back the clock, you cant turn back the tide
-                         Aint that a shame?
-                         Id like to go back one time on a rollercoaster ride
-                         When life`s just a game
-                         No use in sitting and thinking on what you did
-                         When you can lay back and enjoy it through your kids
-                         Sometimes it seems like lately, I just dont know
-                         Better sit back and go with the flow
-                    </pre>
-                </div>
+                @endif
 
                 <div id="comment" class="song_tag song_comment">
                     <div class="song_info_row tag_name">
@@ -253,8 +189,11 @@
                             <p>
                                 Вы можете оставить коментарий
                             </p>
-                            <form>
-                                <textarea class="form-control" rows="5" placeholder="Введите комментарий" name="comments"></textarea>
+                            <form class="comment" action="{{ action('CommentsController@store') }}" method="POST">
+                                <input type="hidden" name="song_id" value="{{ $song->id }}">
+                                <input type="hidden" name="user_id" value="1">
+                                <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                                <textarea class="form-control" rows="5" placeholder="Введите комментарий" name="body"></textarea>
                                 <button type="submit" class="btn btn-primary">
                                     Комметировать
                                 </button>
@@ -306,228 +245,6 @@
 
     </div>
 
-    <div class="right_field col-md-3 col-sm-12 col-xs-12">
-        <div class="player_and_list">
-            <div class="player row">
-                <div class="about_current_song row">
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <img src="foto\Rubber_Soul.jpg" class="artist_img">
-                    </div>
-                    <div class="col-md-7 col-sm-7 col-xs-7">
-                        <div>
-                            The Beatles
-                        </div>
-                        <div>
-                            Michele
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <ul class="list-unstyled">
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="song_in_player row">
-                        <div class="play_img col-md-1 col-sm-1 col-xs-1">
-                            <img src="foto\icon\Start.png" class="img-circle">
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <div>
-                                Queen
-                            </div>
-                            <div>
-                                These Are The Days Of Our Lives
-                            </div>
-                        </div>
-                        <div class="time_song col-md-2 col-sm-2 col-xs-2">
-                            <p>
-                                4:08
-                            </p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 
 @stop
