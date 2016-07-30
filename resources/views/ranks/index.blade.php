@@ -31,8 +31,8 @@
                                         @endforeach
                                     </ul>
 
-                                    <div class="show_all col-md-12 col-sm-12 col-xs-12">
-                                        <a href="#"  data-toggle="modal" data-target="#{{ $rank_name }}"> Показать все </a>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <a href="#" class="show_all" data-toggle="modal" data-target="#{{ $rank_name }}"> Показать все </a>
                                     </div>
 
                                     <div class="modal fade" id="{{ $rank_name }}" tabindex="-1" role="dialog" aria-labelledby="myModal{{ $rank_name }}Label">
@@ -68,18 +68,20 @@
                                                             </ul>
                                                         </div>
                                                     @endif
-                                                    <ul class="list-unstyled all_ranks">
-                                                        @foreach($rank_list['data'] as $data)
-                                                            <li>
-                                                                    <div class="col-md-9 col-sm-9 col-xs-9">
-                                                                        <a href="{{ url("songs?$rank_name=$data->id") }}">{{ $data->name }} </a>
-                                                                    </div>
-                                                                    <div class="col-md-2 col-sm-2 col-xs-2">
-                                                                        {{ $data->$function()->count() }}
-                                                                    </div>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
+                                                    @if(count($rank_list['data'])<$limit)
+                                                        <ul class="list-unstyled all_ranks">
+                                                            @foreach($rank_list['data'] as $data)
+                                                                <li>
+                                                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                                                            <a href="{{ url("songs?$rank_name=$data->id") }}">{{ $data->name }} </a>
+                                                                        </div>
+                                                                        <div class="col-md-2 col-sm-2 col-xs-2">
+                                                                            {{ $data->$function()->count() }}
+                                                                        </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
                                                     <ul class="pagination number_pagination">
                                                         @if($rank_name=="country")
                                                             @for($i=1;$i<$pagination_list+1;$i++)
@@ -117,35 +119,44 @@
 
 @section('js')
     <script type="text/javascript">
+        $('.show_all').on('click',function(){
+            var list_type = $(this).data('target').slice(1);
+            var modal_window = $('#'+list_type);
+            var symbol = modal_window.first().find('.ratings-alphabet').find('.active').data('symbol');
+            var paginate_number = modal_window.first().find('.number_pagination').find('.active').data('paginate');
+
+            controllRankLists(symbol, paginate_number, list_type, {{ $limit }} );
+        });
+
         $('body').on('click','.paginate_number',function(){
+            if($(this).hasClass('active'))
+                return;
+
             var modal_window = $(this).closest('.modal');
             var symbol = modal_window.first().find('.ratings-alphabet').find('.active').data('symbol');
             var modal_window = $(this).closest('.modal');
             var list_type = modal_window[0].id;
             var paginate_number = $(this).data('paginate');
 
-            if($(this).hasClass('active'))
-                return;
-
-            $('.paginate_number').removeClass('active');
-            $(this).addClass("active");
-
             controllRankLists(symbol, paginate_number, list_type, {{ $limit }} );
+
+            modal_window.first().find('.paginate_number').removeClass('active');
+            $(this).addClass("active");
         });
 
         $('.character').on("click", function(){
+            if($(this).hasClass('active'))
+                return;
+
             var modal_window = $(this).closest('.modal');
             var symbol = $(this).data('symbol');
             var list_type = modal_window[0].id;
             var paginate_number = 1;
 
-            if($(this).hasClass('active'))
-                return;
-
-            $('.character').removeClass('active');
-            $(this).addClass("active");
-
             controllRankLists(symbol, paginate_number, list_type, {{ $limit }});
+
+            modal_window.first().find('.character').removeClass('active');
+            $(this).addClass("active");
 
         });
 
@@ -178,8 +189,6 @@
                                 </li>`);
                         }
 
-                        $('#'+list_type).find('.modal-body').append(pagination);
-
                         result.ranks.forEach(function(item, i, result){
                                 var url=`http://`+window.location.host+`\\`+"songs?"+list_type+"="+item.id;
                                 list.append(
@@ -196,7 +205,8 @@
                         list.append(
                             `<li>Ничего не найденно</li>`
                             );
-                    list.insertBefore($('#'+list_type).find(".number_pagination"));
+                    $('#'+list_type).find('.modal-body').append(list);
+                    $('#'+list_type).find('.modal-body').append(pagination);
                 }
             })
         }

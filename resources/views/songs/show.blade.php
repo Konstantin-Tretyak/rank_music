@@ -49,7 +49,9 @@
                             <div class="about_song col-md-8">
                                 <div class="row artist">
                                     <h3>
-                                        {{ $song->performer->name }}
+                                        <a href="{{route('artist.show', $song->performer->id)}}">
+                                            {{ $song->performer->name }}
+                                        </a>
                                     </h3>
                                 </div>
                                 <div class="row song_info_row duration_country_year">

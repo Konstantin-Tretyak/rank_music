@@ -65,13 +65,7 @@ echo "<iframe src='http://mp3xl.org/search/?query=maroon%205%20Nothing%20Lasts%2
                                                     </div>
                                                 </div>
                                                 <div class="row song_info_row rank_comments_lisents">
-                                                    <div class="rank col-md-4">
-                                                        <span class="glyphicon glyphicon-glass" data-toggle="tooltip" data-placement="bottom"  title="Рейтинг" aria-hidden="true"></span>
-                                                        <p>
-                                                            1
-                                                        </p>
-                                                    </div>
-                                                    <div class="listents col-md-offset-4 col-md-4 col-sm-4">
+                                                    <div class="listents col-md-4 col-sm-4">
                                                         <span class="glyphicon glyphicon-headphones" data-toggle="tooltip" data-placement="bottom"  title="Количество прослушиваний" aria-hidden="true"></span>
                                                         <p>
                                                             {{ $artist->allListensSongs() }}
