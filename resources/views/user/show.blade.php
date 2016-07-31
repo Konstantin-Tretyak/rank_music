@@ -68,13 +68,11 @@
                                     <span class="glyphicon glyphicon-music" data-toggle="tooltip" data-placement="bottom"  title="Аудио" aria-hidden="true"></span>
                                 </div>
 
-                                <?php $id=0; $songs_count=[]; ?>
                                 @foreach($songs_list as $rank=>$list)
                                     @if($rank==3.5)
                                         {{ dd("HEELO") }}
                                     @endif
                                     @if(isset($rank))
-                                        <?php $id++; ?>
                                         <div>
                                             <div class="nbs-flexisel-inner">
                                                 <div class="new_tag">
@@ -88,7 +86,7 @@
                                                         </div>
                                                     @endif
 
-                                                    <ul id="flexiselDemo{{ $id }}" class="song_list list-inline">
+                                                    <ul class="song_list list-inline flexisel">
                                                         @foreach($list as $song)
                                                             <li class="song">
                                                                 <div class="song_information">
@@ -138,7 +136,6 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <?php $songs_count[$id]=count($list); ?>
                                 @endforeach
                             </div>
                         @endif

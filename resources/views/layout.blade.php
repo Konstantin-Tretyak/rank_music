@@ -131,17 +131,11 @@
 
 
    <script type="text/javascript">
-        @if(isset($songs_count))
-            $(document).ready(function() {
-                @foreach($songs_count as $key=>$value)
-                    @if($value==2)
-                        $("#flexiselDemo{{ $key }}").flexisel();
-                    @elseif($value>=3)
-                        $("#flexiselDemo{{ $key }}").flexisel();
-                    @endif
-                @endforeach
-            });
-        @endif
+        $(".flexisel").each(function(){
+            if ($(this).find("li").length > 1) {
+                $(this).flexisel();
+            }
+        });
     </script>
 
     {{--     <script >

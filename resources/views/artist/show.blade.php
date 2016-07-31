@@ -84,9 +84,7 @@ echo "<iframe src='http://mp3xl.org/search/?query=maroon%205%20Nothing%20Lasts%2
                                         <div>
                                             <div class="nbs-flexisel-inner">
                                                 <div class="new_tag">
-                                                    <?php $id=1; $songs_count=[]; ?>
-                                                    <?php $songs_count[$id]=count($artist->performerSongs()->get()); ?>
-                                                    <ul id="flexiselDemo{{ $id }}" class="song_list list-inline">
+                                                    <ul class="song_list list-inline flexisel">
                                                         @foreach($artist->performerSongs()->limit(12)->get() as $song)
                                                             <li class="song">
                                                                 <div class="song_information">
