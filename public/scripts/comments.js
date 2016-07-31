@@ -25,12 +25,12 @@ $(document).ready
                             msg.append(`
                                         <div class="about_user">
                                             <div class="user_img col-md-2 col-sm-2 col-xs-2">
-                                                <img src="`+`http://`+window.location.host+`\\`+result.user_img+`">
+                                                <img src="`+result.user_img+`">
                                             </div>
                                             <div class="user_name col-md-10 col-sm-10 col-xs-12">
                                                 <h4>`+result.user_name+`</h4>
                                                 <h6>
-                                                    На сайте с `+result.user_creat+`
+                                                    На сайте с `+result.user_creat.date+`
                                                 </h6>
                                             </div>
                                         </div>

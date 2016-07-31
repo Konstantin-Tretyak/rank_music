@@ -140,7 +140,6 @@ class DatabaseSeeder extends Seeder
                 'rank' => $explode[$i][8],
                 'place_in_rank' => $explode[$i][9],
                 'video_youtube_id' => $explode[$i][10],
-                'text' => $explode[$i][11],
             ]);
 
             /*if($i<count($explode_rank))

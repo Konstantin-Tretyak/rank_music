@@ -83,12 +83,12 @@
                                     </button>
                                 </span>
                             </div>
-                            <div class="filter_for_search" style="display:none">
+                            {{-- <div class="filter_for_search" style="display:none">
                                 <label class="checkbox-inline"><input type="checkbox" name="select_all" value="">по всему</label>
                                 <label class="checkbox-inline"><input type="checkbox" name="search_filter[]" value="">по названию</label>
                                 <label class="checkbox-inline"><input type="checkbox" name="search_filter[]" value="">по исполнителю</label>
                                 <label class="checkbox-inline"><input type="checkbox" name="search_filter[]" value="">по композитору</label>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>
@@ -144,18 +144,18 @@
         @endif
     </script>
 
-    <script >
-        $('input.search').on('focus', function(){
-            $('.filter_for_search').css("display","block");
-        });
-    </script>
+    {{--     <script >
+            $('input.search').on('focus', function(){
+                $('.filter_for_search').css("display","block");
+            });
+        </script>
 
-    <script>
-        $('.information').on('click', function(){
-            if($('.filter_for_search').css("display")==="block")
-                $('.filter_for_search').css("display","none")
-        });
-    </script>
+        <script>
+            $('.information').on('click', function(){
+                if($('.filter_for_search').css("display")==="block")
+                    $('.filter_for_search').css("display","none")
+            });
+        </script> --}}
 
 
     <script>

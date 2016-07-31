@@ -197,7 +197,7 @@
                                 <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                                 <textarea class="form-control" rows="5" placeholder="Введите комментарий" name="body"></textarea>
                                 <button type="submit" class="btn btn-primary">
-                                    Комметировать
+                                    Комментировать
                                 </button>
                             </form>
                         </div>

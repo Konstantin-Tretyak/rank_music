@@ -48,12 +48,14 @@
                                                 </h4>
                                             </div>
                                             <?php $mostListenPerformer=$user->mostListensPerformer(); ?>
-                                            <div class="col-md-7">
-                                                <a href="{{ route('artist.show', $mostListenPerformer->id) }}">
-                                                    {{$mostListenPerformer->name}}
-                                                </a>
-                                                {{$mostListenPerformer->listen_count}}
-                                            </div>
+                                            @if($mostListenPerformer)
+                                                <div class="col-md-7">
+                                                    <a href="{{ route('artist.show', $mostListenPerformer->id) }}">
+                                                        {{$mostListenPerformer->name}}
+                                                    </a>
+                                                    ({{$mostListenPerformer->listen_count}} прослушиваний)
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

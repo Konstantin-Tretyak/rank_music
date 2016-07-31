@@ -30,8 +30,8 @@ class CommentsController extends Controller
                 $comment = new Comment($request->all());
                 Auth::user()->comments()->save($comment);
                 $comment->save();
-                $user = \DB::table('users')->find(Auth::user()->id);
-                $response = array('user_img'=>$user->photo_path,'user_name'=>$user->name,'user_creat'=>$user->created_at,'body'=>$comment->body,'date'=>$comment->created_at->toDateTimeString());
+                $user = Auth::user();
+                $response = array('user_img'=>$user->photo,'user_name'=>$user->name,'user_creat'=>$user->created_at,'body'=>$comment->body,'date'=>$comment->created_at->toDateTimeString());
                 return response()->json($response);
             }
     }

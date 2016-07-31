@@ -21,7 +21,7 @@
                                         @foreach($rank_list['data'] as $data)
                                             <li>
                                                     <div class="col-md-9 col-sm-9 col-xs-9 name">
-                                                        <a href="{{ url("songs?$rank_name=$data->id") }}">{{ $data->name }} </a>
+                                                        <a href="{{ url("songs?sort=place_in_rank&$rank_name=$data->id") }}">{{ $data->name }} </a>
                                                     </div>
                                                     <div class="col-md-2 col-sm-2 col-xs-2">
                                                         {{ $data->$function()->count() }}
@@ -73,7 +73,7 @@
                                                             @foreach($rank_list['data'] as $data)
                                                                 <li>
                                                                         <div class="col-md-9 col-sm-9 col-xs-9">
-                                                                            <a href="{{ url("songs?$rank_name=$data->id") }}">{{ $data->name }} </a>
+                                                                            <a href="{{ url("songs?sort=place_in_rank&$rank_name=$data->id") }}">{{ $data->name }} </a>
                                                                         </div>
                                                                         <div class="col-md-2 col-sm-2 col-xs-2">
                                                                             {{ $data->$function()->count() }}
