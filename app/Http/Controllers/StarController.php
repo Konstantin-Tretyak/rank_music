@@ -15,13 +15,9 @@ class StarController extends Controller
 {
     public function edit(Request $request)
     {
+        // TODO: validate
         if ($request->ajax())
         {
-            if(!auth()->check())
-            {
-                $flash = ['error' => 'Что бы голосовать, необходимо быть зарегистрированным'];
-                return response($flash, 401);
-            }
             $rank = \App\Rank::where("song_id",$request->input("song_id"))->where("user_id",Auth::user()->id)->first();
             if($rank)
                 $rank->update(array('value'=>$request->input("value")));

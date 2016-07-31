@@ -22,8 +22,6 @@ class ListenController extends Controller
             if(!auth()->check())
             {
                 $listen->save();
-                dd($listen->song());
-                //$listen->song()->update(['listens_count'=>$listen->song()->listens_count+1]);
             }
             else
             {

@@ -116,12 +116,6 @@ class SongsController extends Controller
             $songs->orderBy($sort,'asc');
         }
 
-        /*if($sort = $request->input('sort'))
-        {
-            $filters['sort'] = $sort;
-            $songs = $songs->join('ranks', 'songs.id','=','ranks.song_id')->groupBy('songs_id')->orderBy('song_id');
-        }*/
-
         $performers = \App\Artist::distinct()->select('artists.*')->join('songs','artists.id','=','songs.performer_id')->get();
         $composers = \App\Artist::distinct()->select('artists.*')->join('songs','artists.id','=','songs.composer_id')->get();
         $genres = \App\Genre::all();

@@ -16,11 +16,6 @@ class CommentsController extends Controller
     {
             if($request->ajax())
             {
-                if(!auth()->check())
-                {
-                    $flash = ['error' => 'Что бы комментировать, необходимо быть зарегистрированным'];
-                    return response($flash, 401);
-                }
                 if(!$request->input('body'))
                 {
                     $flash = ['error' => 'Вы ничего не написали'];
