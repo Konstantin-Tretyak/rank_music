@@ -22,6 +22,7 @@ class CreateSongsTable extends Migration
             $table->integer('performer_id')->unsigned()->nullable();
             $table->integer('composer_id')->unsigned()->nullable();
             $table->integer('rank_count')->unsigned()->default(0);
+            $table->float('my_rank')->unsigned()->default(0);
             $table->float('rank')->unsigned()->default(0);
             $table->integer('place_in_rank')->unsigned()->default(0);
             $table->integer('listens_count')->unsigned()->default(0);

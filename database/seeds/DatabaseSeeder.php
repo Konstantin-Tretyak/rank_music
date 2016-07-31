@@ -137,6 +137,7 @@ class DatabaseSeeder extends Seeder
                 'performer_id' => $explode[$i][5],
                 'composer_id' => $explode[$i][6],
                 'rank_count' => $explode[$i][7],
+                'my_rank' => $explode[$i][8],
                 'rank' => $explode[$i][8],
                 'place_in_rank' => $explode[$i][9],
                 'video_youtube_id' => $explode[$i][10],

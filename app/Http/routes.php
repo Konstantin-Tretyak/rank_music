@@ -27,12 +27,12 @@ Route::post('get_ranks','RanksListController@getRankList');
 //Route::get('ranks/{theme}/{first_character?}','RanksListController@show');
 //Route::resource('ranks', 'RanksListController', ['only' => ['index', 'show']]);
 
-Route::post('star_controller', 'StarController@edit')->middleware('auth');
+Route::post('star_controller', 'StarController@edit');
 Route::post('listen_controller','ListenController@store');
 
 Route::resource('songs', 'SongsController', ['only' => ['index', 'show']]);
 
-Route::post('comments', 'CommentsController@store')->middleware('auth');
+Route::post('comments', 'CommentsController@store');
 
 // Маршруты аутентификации...
 Route::get('auth/login', ['as' => 'login', 'uses'=>'Auth\AuthController@getLogin']);

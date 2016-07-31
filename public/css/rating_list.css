@@ -31,11 +31,15 @@ ul .ratings-alphabet li {
 }
 
 ul .ratings-alphabet li:hover {
-    background-color: #337ab7;
-    color: #ffffff;
+    background-color: #eee;
     cursor: pointer;
 }
 
+ul .ratings-alphabet .active {
+    background-color: #337ab7;
+    color: #fff;
+    cursor: pointer;
+}
 
 .list_character {
     margin-bottom: 5px;

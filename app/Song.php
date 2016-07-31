@@ -60,7 +60,8 @@ class Song extends AbstractModel
 
     public function getAverageRankAttribute()
     {
-        return $this->ranks->avg('value');
+        $average = ($this->ranks->sum('value')+$this->my_rank)/($this->ranked_count+1);
+        return $average;
     }
 
     public function getUserRankAttribute()

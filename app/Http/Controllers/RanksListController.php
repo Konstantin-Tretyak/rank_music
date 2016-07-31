@@ -95,8 +95,6 @@ class RanksListController extends Controller
                 $response = array('paginate_active'=>$offset,'paginate_count'=>$paginate_count, 'ranks'=>$query);
 
                 return response()->json($response);
-
-
         }
     }
 }

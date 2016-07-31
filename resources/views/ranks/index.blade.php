@@ -176,7 +176,8 @@
                         }
 
                         result.ranks.forEach(function(item, i, result){
-                                var url=`http://`+window.location.host+`\\`+"songs?sort=place_in_rank&"+list_type+"="+item.id;
+
+                                var url="{{ route('songs.index') }}?sort=place_in_rank&"+list_type+"="+item.id;
                                 list.append(
                                     `<div class="col-md-9 col-sm-9 col-xs-9">
                                      <a href="`+url+`">`+item.name+`</a>
