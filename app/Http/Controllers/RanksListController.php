@@ -12,9 +12,8 @@ class RanksListController extends Controller
     public function index()
     {
         $limit = 20;
-        ///ШУРИК, ЗДЕСЬ НАДО БУДЕТ, ЧТО БЫ ТЫ ПОМОГ, ИЛИ ЖЕ ЭТУ СТРАНИЦУ НАФИГ.
-        ///ПРОСТО НЕ ПРЕДСТАВЛЯЮ, КАК ЗДЕСЬ НУЖНО КАМПОНОВАТЬ ВСЕ ЭТО.
-        ///ПЛЮС ЕЩЁ Я РЕЙТИНГИ ПО ГОДАМ, ДЕСЯТИЛЕТИЯМ И СТОЛЕТИЯМ СДЕЛАЛ КАЛИЧНО.
+
+        // TODO: переделать как в welcomecontroller
         $ranks['genre']['tittle'] = "Рейтинги по жанру";
         $ranks['genre']['data'] = \App\Genre::limit($limit)->get();
 
