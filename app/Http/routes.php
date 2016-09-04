@@ -14,6 +14,8 @@
 Route::get('/', ['as'=>'welcome','uses'=>'WelcomeController@index']);
 Route::get('/home', ['as'=>'home','uses'=>'WelcomeController@index']);
 
+Route::get('/feedbacks/{id}',['as'=>'feedbacks','uses'=>'FeedbacksController@index']);
+
 //Route::get('user', ['as'=>'user','uses'=>'UserPagesController@show']);
 
 Route::resource('user', 'UserPagesController',['only' => ['index', 'show']]);

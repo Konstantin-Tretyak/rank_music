@@ -10,11 +10,13 @@
         <link rel="stylesheet" href="{{ url('css/main.css') }}">
         <link rel="stylesheet" href="{{ url('css/rank_list.css') }}">
         <link rel="stylesheet" href="{{ url('css/song_page.css') }}">
-        <link rel="stylesheet" href="{{ url('css/star-rating.css') }}">
         <link rel="stylesheet" href="{{ url('css/rating_list.css') }}">
         <link rel="stylesheet" href="{{ url('css/carousel.css') }}">
         <link rel="stylesheet" href="{{ url('css/pnotify.custom.min.css') }}">
-        <link rel="stylesheet" href="{{ url('css/select2.css') }}">
+        <link rel="stylesheet" href="{{ url('css/select2.css') }}">-->
+        <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+                <link rel="stylesheet" href="{{ url('css/star-rating.css') }}">
+        <!--<link rel="stylesheet" href="{{ url('css/font.css') }}">-->
 
     </head>
 

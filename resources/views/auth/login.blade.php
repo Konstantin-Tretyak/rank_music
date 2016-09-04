@@ -1,5 +1,4 @@
 @extends('layout')
-
 @if(isset($messages))
     {{ dd($messages->first('name')) }}
 @endif

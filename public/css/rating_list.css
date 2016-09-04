@@ -61,18 +61,10 @@ div.name{
     text-overflow: ellipsis;
 }
 
-@media(max-width: 298px) {
-
 .ratings_list p {
     margin-top: 5px;
     border-bottom: 1px solid #000000;
 }
-
-/*.ratings_list li {
-    height: 20px;
-    width: 100%;
-    overflow: hidden;
-}*/
 
 .show_all {
     border-top: 1px solid #000000;
